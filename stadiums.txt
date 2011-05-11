@@ -1,0 +1,320 @@
+Team: Arizona Cardinals
+Country: USA
+City: Glendale, Arizona
+Sport: American Football 
+League: NFL 
+Stadium: University of Phoenix Stadium
+Capacity: 63400 
+Address: One Cardinals Drive, Glendale, AZ 85305
+Map: University of Phoenix Stadium map
+NFL tickets:
+Team: Atlanta Falcons
+Country: USA
+City: Atlanta, Georgia
+Sport: American Football 
+League: NFL 
+Stadium: Georgia Dome
+Capacity: 71228 
+Address: One Georgia Dome Drive, N.W., Atlanta, Georgia 30313
+Map: Georgia Dome map
+NFL tickets:
+Team: Baltimore Ravens
+Country: USA
+City: Baltimore, Maryland
+Sport: American Football 
+League: NFL 
+Stadium: M&T Bank Stadium
+Capacity: 70107 
+Address: 1101 Russell Street, Baltimore, Maryland 21230
+Map: M&T Bank Stadium map
+NFL tickets:
+Team: Buffalo Bills
+Country: USA
+City: Orchard Park, New York
+Sport: American Football 
+League: NFL 
+Stadium: Ralph Wilson Stadium
+Capacity: 73967 
+Address: One Bills Drive, Orchard Park, New York 14127
+Map: Ralph Wilson Stadium map
+NFL tickets:
+Team: Carolina Panthers
+Country: USA
+City: Charlotte, North Carolina
+Sport: American Football 
+League: NFL 
+Stadium: Bank of America Stadium
+Capacity: 73298 
+Address: 800 South Mint Street Charlotte, North Carolina 28202
+Map: Bank of America Stadium map
+NFL tickets:
+Team: Chicago Bears
+Country: USA
+City: Chicago, Illinois
+Sport: American Football 
+League: NFL 
+Stadium: Soldier Field
+Capacity: 61500 
+Address: 1410 South Museum Campus Dr, Chicago, Illinois 60605
+Map: Soldier Field map
+NFL tickets:
+Team: Cincinnati Bengals
+Country: USA
+City: Cincinnati, Ohio
+Sport: American Football 
+League: NFL 
+Stadium: Paul Brown Stadium
+Capacity: 65535 
+Address: One Paul Brown Stadium, Cincinnati, Ohio 45202
+Map: Paul Brown Stadium map
+NFL tickets:
+Team: Cleveland Browns
+Country: USA
+City: Cleveland, Ohio
+Sport: American Football 
+League: NFL 
+Stadium: Cleveland Browns Stadium
+Capacity: 73200 
+Address: 1085 West Third Street, Cleveland, Ohio 44114
+Map: Cleveland Browns Stadium map
+NFL tickets:
+Team: Dallas Cowboys
+Country: USA
+City: Irving, Texas
+Sport: American Football 
+League: NFL 
+Stadium: Cowboys Stadium
+Capacity: 80000 
+Address: 925 N Collins St, Arlington, TX
+Map: Cowboys Stadium map
+NFL tickets:
+Team: Denver Broncos
+Country: USA
+City: Denver, Colorado
+Sport: American Football 
+League: NFL 
+Stadium: Invesco Field at Mile High
+Capacity: 76125 
+Address: 1701 Bryant Street, Denver, Colorado 80204
+Map: Invesco Field at Mile High map
+NFL tickets:
+Team: Detroit Lions
+Country: USA
+City: Detroit, Michigan
+Sport: American Football 
+League: NFL 
+Stadium: Ford Field
+Capacity: 65000 
+Address: 2000 Brush Street, Detroit, Michigan 48226
+Map: Ford Field map
+NFL tickets:
+Team: Green Bay Packers
+Country: USA
+City: Green Bay, Wisconsin
+Sport: American Football 
+League: NFL 
+Stadium: Lambeau Field
+Capacity: 72601 
+Address: 1265 Lombardi Avenue, Green Bay, Wisconsin 54307
+Map: Lambeau Field map
+NFL tickets:
+Team: Houston Texans
+Country: USA
+City: Houston, Texas
+Sport: American Football 
+League: NFL 
+Stadium: Reliant Stadium
+Capacity: 71500 
+Address: One Reliant Park, Houston, Texas 77054
+Map: Reliant Stadium map
+NFL tickets:
+Team: Indianapolis Colts
+Country: USA
+City: Indianapolis, Indiana
+Sport: American Football 
+League: NFL 
+Stadium: Lucas Oil Stadium
+Capacity: 63000 
+Address: 500 South Capitol Ave, Indianapolis, IN 46225
+Map: Lucas Oil Stadium map
+NFL tickets:
+Team: Jacksonville Jaguars
+Country: USA
+City: Jacksonville, Florida
+Sport: American Football 
+League: NFL 
+Stadium: EverBank Field
+Capacity: 67164 
+Address: 1 Stadium Pl, Jacksonville, FL 32202
+Map: EverBank Field map
+NFL tickets:
+Team: Kansas City Chiefs
+Country: USA
+City: Kansas City, Missouri
+Sport: American Football 
+League: NFL 
+Stadium: Arrowhead Stadium
+Capacity: 77000 
+Address: 1 Arrowhead Drive, Kansas City, Missouri 64129
+Map: Arrowhead Stadium map
+NFL tickets:
+Team: Miami Dolphins
+Country: USA
+City: Miami Gardens, Florida
+Sport: American Football 
+League: NFL 
+Stadium: Sun Life Stadium
+Capacity: 76500 
+Address: 2269 Dan Marino Boulevard, Miami Gardens, Florida 33056
+Map: Sun Life Stadium map
+NFL tickets:
+Team: Minnesota Vikings
+Country: USA
+City: Minneapolis, Minnesota
+Sport: American Football 
+League: NFL 
+Stadium: Hubert H. Humphrey Metrodome
+Capacity: 63669 
+Address: 900 South Fifth Street, Minneapolis, Minnesota 55415
+Map: Hubert H. Humphrey Metrodome map
+NFL tickets:
+Team: New England Patriots
+Country: USA
+City: Foxborough, Massachusetts
+Sport: American Football 
+League: NFL 
+Stadium: Gillette Stadium
+Capacity: 68756 
+Address: One Patriot Place Foxborough, Massachusetts 02035
+Map: Gillette Stadium map
+NFL tickets:
+Team: New Orleans Saints
+Country: USA
+City: New Orleans, Louisiana
+Sport: American Football 
+League: NFL 
+Stadium: Louisiana Superdome
+Capacity: 72000 
+Address: 1500 Poydras Street, New Orleans, Louisiana 70112
+Map: Louisiana Superdome map
+NFL tickets:
+Team: New York Giants
+Country: USA
+City: East Rutherford, New Jersey
+Sport: American Football 
+League: NFL 
+Stadium: New Meadowlands Stadium
+Capacity: 82566 
+Address: 102 Route 120, East Rutherford, NJ 07073 
+Map: New Meadowlands Stadium map
+NFL tickets:
+Team: New York Jets
+Country: USA
+City: East Rutherford, New Jersey
+Sport: American Football 
+League: NFL 
+Stadium: New Meadowlands Stadium
+Capacity: 82566 
+Address: 102 Route 120, East Rutherford, NJ 07073 
+Map: New Meadowlands Stadium map
+NFL tickets:
+Team: Oakland Raiders
+Country: USA
+City: Oakland, California
+Sport: American Football 
+League: NFL 
+Stadium: Oakland-Alameda County Coliseum
+Capacity: 63026 
+Address: 7000 Coliseum Way, Oakland, California 94621
+Map: Oakland-Alameda County Coliseum map
+NFL tickets:
+Team: Philadelphia Eagles
+Country: USA
+City: Philadelphia, Pennsylvania
+Sport: American Football 
+League: NFL 
+Stadium: Lincoln Financial Field
+Capacity: 68532 
+Address: 3501 South Broad Street, Philadelphia, Pennsylvania 19101
+Map: Lincoln Financial Field map
+NFL tickets:
+Team: Pittsburgh Steelers
+Country: USA
+City: Pittsburgh, Pennsylvania
+Sport: American Football 
+League: NFL 
+Stadium: Heinz Field
+Capacity: 65050 
+Address: 100 Art Rooney Avenue, Pittsburgh, Pennsylvania 15212
+Map: Heinz Field map
+NFL tickets:
+Team: San Diego Chargers
+Country: USA
+City: San Diego, California
+Sport: American Football 
+League: NFL 
+Stadium: Qualcomm Stadium
+Capacity: 71294 
+Address: 9449 Friars Rd, San Diego, CA 92108
+Map: Qualcomm Stadium map
+NFL tickets:
+Team: San Francisco 49ers
+Country: USA
+City: San Francisco, California
+Sport: American Football 
+League: NFL 
+Stadium: Candlestick Park
+Capacity: 70207 
+Address: 602 Jamestown Avenue, San Francisco, California 94124
+Map: Candlestick Park map
+NFL tickets:
+Team: Seattle Seahawks
+Country: USA
+City: Seattle, Washington
+Sport: American Football 
+League: NFL 
+Stadium: Qwest Field
+Capacity: 67000 
+Address: 800 Occidental Avenue S., Seattle, Washington 98134-1200
+Map: Qwest Field map
+NFL tickets:
+Team: St. Louis Rams
+Country: USA
+City: St. Louis, Missouri
+Sport: American Football 
+League: NFL 
+Stadium: Edward Jones Dome
+Capacity: 66000 
+Address: 701 Convention Plaza, St. Louis, Missouri 63101
+Map: Edward Jones Dome map
+NFL tickets:
+Team: Tampa Bay Buccaneers
+Country: USA
+City: Tampa, Florida
+Sport: American Football 
+League: NFL 
+Stadium: Raymond James Stadium
+Capacity: 66321 
+Address: One Buccaneer Place, Tampa, Florida 33607
+Map: Raymond James Stadium map
+NFL tickets:
+Team: Tennessee Titans
+Country: USA
+City: Nashville, Tennessee
+Sport: American Football 
+League: NFL 
+Stadium: LP Field
+Capacity: 68958 
+Address: One Titans Way, Nashville, Tennessee 37213
+Map: LP Field map
+NFL tickets:
+Team: Washington Redskins
+Country: USA
+City: Landover, Maryland
+Sport: American Football 
+League: NFL 
+Stadium: FedExField
+Capacity: 91665 
+Address: 1600 FedEx Way, Landover, MD 20785
+Map: FedExField map
+NFL tickets:
