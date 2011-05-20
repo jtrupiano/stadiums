@@ -4,7 +4,15 @@ require 'bundler/setup'
 
 Bundler.require
 
-ActiveRecord::Base.establish_connection(:adapter => 'postgresql', :database => 'stadiums')
+def connect_to_pgsql
+  ActiveRecord::Base.establish_connection(:adapter => 'postgresql', :database => 'stadiums')
+end
+
+def disconnect_from_pgsql
+  ActiveRecord::Base.remove_connection
+end
+    
+connect_to_pgsql
 
 $: << '.'
 require 'lib/models'
@@ -82,8 +90,8 @@ def week1
   end
 end
 
-# @all_games = Game.find(:all, :include => [:home_team, :away_team]) #, :conditions => ["gametime < ?", Time.local(2011,10,18)])
-@all_games = Game.find(:all, :include => [:home_team, :away_team], :conditions => ["gametime < ?", Time.local(2011,11,13)])
+@all_games = Game.find(:all, :include => [:home_team, :away_team]) #, :conditions => ["gametime < ?", Time.local(2011,10,18)])
+# @all_games = Game.find(:all, :include => [:home_team, :away_team], :conditions => ["gametime < ?", Time.local(2011,11,13)])
 def games_we_care_about(memo)
   ret = @all_games.select {|g| 
     g.must_arrive_no_later_than_in_seconds_since_epoch > memo.last.cannot_leave_earlier_than_in_seconds_since_epoch && 
@@ -101,13 +109,11 @@ CHAIN_SIZE = 32
 def find_next_game(memo)
   games = games_we_care_about(memo)
   games.each do |g|
-    puts g if memo.size == 19
-    puts "    #{g}" if memo.size == 20
     if memo.last.can_travel_to?(g)
       memo.push(g)
       if memo.size >= CHAIN_SIZE
         puts "DING DING DING WE HAVE A WINNER"
-        File.open("discovered_route#{@cnt += 1}.csv", 'w') {|f| f.write(Scheduler.new(memo).to_csv) }
+        File.open("discovered_route#{Time.now.to_s}.csv", 'w') {|f| f.write(Scheduler.new(memo).to_csv) }
       end
       find_next_game(memo)
       memo.pop
@@ -115,7 +121,22 @@ def find_next_game(memo)
   end
 end
 
-chain = Game.find([986,989,1000,1005,1015,1027,1034,1035,1043,1051,1052,1067,1070,1082,1084], :include => [:home_team, :away_team])
-Game.find([843,844,858], :include => [:home_team, :away_team]).each do |g| chain << g; end
-find_next_game(chain)
-chain.pop
+memo = [Game.find(843)]
+children_pids = []
+first_set_of_games = games_we_care_about(memo)
+disconnect_from_pgsql
+first_set_of_games.each do |g2|
+  children_pids << fork do
+    connect_to_pgsql
+    memo << g2
+    find_next_game(memo)
+    exit
+  end
+end
+
+children_pids.each do |pid|
+  Process.waitpid(pid)
+end
+
+# chain = Game.find([843,844,858], :include => [:home_team, :away_team])
+# find_next_game(chain)
