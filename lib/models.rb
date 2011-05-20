@@ -17,42 +17,72 @@ class Stadium < ActiveRecord::Base
 end
 
 class Distance < ActiveRecord::Base
-  belongs_to :from_stadium, :class_name => "Stadium", :foreign_key => :from_stadium
-  belongs_to :to_stadium, :class_name => "Stadium", :foreign_key => :to_stadium
+  belongs_to :from_stadium, :class_name => "Stadium", :foreign_key => :from_stadium_id
+  belongs_to :to_stadium, :class_name => "Stadium", :foreign_key => :to_stadium_id
 
   def self.between(stadium1, stadium2)
+    @distances ||= {}
     from = (stadium1.id < stadium2.id)  ? stadium1 : stadium2
     to   = (stadium1.id >= stadium2.id) ? stadium1 : stadium2
-    find(:first, :conditions => ["from_stadium = ? AND to_stadium = ?", from.id, to.id])
+    @distances["#{from.id}_#{to.id}"] ||= find(:first, :conditions => {:from_stadium_id => from.id, :to_stadium_id => to.id})
   end
   
   def self.closest_stadiums_to(stadium)
     find(:all, :conditions => ["from_stadium = ? OR to_stadium = ?", stadium.id, stadium.id], :order => "distance_in_minutes")
+  end
+
+  def distance_in_hours
+    @distance_in_hours ||= self.distance_in_minutes / 60.0
   end
 end
 
 class Game < ActiveRecord::Base
   belongs_to :home_team, :class_name => "Stadium", :foreign_key => :home_stadium_id
   belongs_to :away_team, :class_name => "Stadium", :foreign_key => :away_stadium_id
+  has_many :traveling_games, :foreign_key => :from_game_id
 
   def to_s
-    "#{gametime.strftime('%a %m/%d %I:%M%p')} #{away_team.team} @ #{home_team.team}"
+    @s ||= "#{gametime.strftime('%a %m/%d %I:%M%p')} #{away_team.team} @ #{home_team.team}"
   end
 
   def must_arrive_no_later_than
-    self.gametime - 4.hours
+    @must_arrive_no_later_than ||= self.gametime - 4.hours
+  end
+
+  def must_arrive_no_later_than_in_seconds_since_epoch
+    @must_arrive_no_later_than_in_seconds_since_epoch ||= self.must_arrive_no_later_than.to_i
   end
 
   def cannot_leave_earlier_than
-    self.gametime + 4.hours
+    @cannot_leave_earlier_than ||= self.gametime + 4.hours
+  end
+
+  def cannot_leave_earlier_than_in_seconds_since_epoch
+    @cannot_leave_earlier_than_in_seconds_since_epoch ||= self.cannot_leave_earlier_than.to_i
+  end
+
+  def next_game_threshold
+    @next_game_threshold ||= self.gametime + 9.days
+  end
+
+  def next_game_threshold_in_seconds_since_epoch
+    @next_game_threshold_in_seconds_since_epoch ||= self.next_game_threshold.to_i
   end
 
   def can_travel_to?(other_game)
     return false if self.id == other_game.id
-    return false if other_game.gametime < self.gametime
-    travel_time_required = Distance.between(self.home_team, other_game.home_team).distance_in_minutes 
-    total_available_time = other_game.must_arrive_no_later_than - self.cannot_leave_earlier_than
-    acceptable_ratio = 0.33333
-    return (total_available_time * acceptable_ratio) > travel_time_required
+    return true if self.home_team.id == other_game.home_team.id
+    travel_time_required_in_hours = Distance.between(self.home_team, other_game.home_team).distance_in_hours
+    total_available_time_in_hours = (other_game.must_arrive_no_later_than - self.cannot_leave_earlier_than) / 3600.0
+    acceptable_downtime = 10 # hours
+    return (total_available_time_in_hours - travel_time_required_in_hours) > acceptable_downtime
   end
+end
+
+
+class TravelingGame < ActiveRecord::Base
+  belongs_to :from_game, :class_name => 'Game', :foreign_key => :from_game_id
+  belongs_to :to_game,   :class_name => 'Game', :foreign_key => :to_game_id
+  belongs_to :from_stadium, :class_name => 'Stadium', :foreign_key => :from_stadium_id
+  belongs_to :to_stadium,   :class_name => 'Stadium', :foreign_key => :to_stadium_id
 end
