@@ -1,20 +1,4 @@
-require 'csv'
-require 'rubygems'
-require 'bundler/setup'
-
-Bundler.require
-
-ActiveRecord::Base.establish_connection(:adapter => 'postgresql', :database => 'stadiums')
-
-$: << '.'
-require 'lib/models'
-require 'lib/data_importer'
-
-# importer = DataImporter.new
-# importer.import_stadiums
-# importer.import_distances
-# importer.import_schedule
-
+require './environment'
 
 class Scheduler
   attr_reader :games

@@ -1,6 +1,11 @@
 require 'open-uri'
 
 class DataImporter
+  
+  def db
+    @_db ||= PGconn.open(:dbname => 'stadiums', :host => 'localhost')
+  end
+
   def import_stadiums
     lines = File.readlines('stadiums.txt')
     lines_grouped_by_stadium = lines.inject([]) {|memo, line|
@@ -12,14 +17,12 @@ class DataImporter
       memo
     }
 
-    conn = PGconn.open(:dbname => 'stadiums')
-
     lines_grouped_by_stadium.each do |lines_for_stadium|
       team = lines_for_stadium[0].match(/^Team:\s(.+)/)[1]
       stadium = lines_for_stadium[5].match(/^Stadium:\s(.+)/)[1]
       address = lines_for_stadium[7].match(/^Address:\s(.+)/)[1]
       puts "#{team} #{stadium} #{address}"
-      conn.exec("INSERT INTO stadiums(team, stadium, address) VALUES('#{team}', '#{stadium}', '#{address}');")
+      db.exec("INSERT INTO stadiums(team, stadium, address) VALUES('#{team}', '#{stadium}', '#{address}');")
     end
     puts "#{lines_grouped_by_stadium.size} stadiums"
   end
@@ -65,7 +68,7 @@ class DataImporter
 
   private
     def get_year(date_str)
-      date_str.include?("JAN") ? " 2012" : " 2011"
+      date_str.include?("JAN") ? " 2013" : " 2012"
     end
 
     def read_city(city)
