@@ -1,0 +1,15 @@
+First, create the database
+
+  $> createdb -h localhost stadiums
+
+Then, build the db structure
+
+  $> ruby create_db.rb
+
+Then, import the data.
+
+  $> ruby import_data.rb
+
+Then run the algo.
+
+  $> ruby run.rb

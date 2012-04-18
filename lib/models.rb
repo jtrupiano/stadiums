@@ -1,4 +1,3 @@
-
 class Stadium < ActiveRecord::Base
   set_table_name "stadiums"
   def request_path(from, to)
@@ -9,10 +8,16 @@ class Stadium < ActiveRecord::Base
     puts "finding distance from #{self.stadium} to #{stadium.stadium}"
     r = open(request_path(self.address, stadium.address))
     json = JSON.parse(r.read)
-    OpenStruct.new(
-      :minutes => json["routes"].first["legs"].last["duration"]["value"] / 60,
-      :miles => json["routes"].first["legs"].last["distance"]["value"] * 0.000621371192
-    )
+    begin
+      return OpenStruct.new(
+        :minutes => json["routes"].first["legs"].last["duration"]["value"] / 60,
+        :miles => json["routes"].first["legs"].last["distance"]["value"] * 0.000621371192
+      )
+    rescue NoMethodError
+      puts "Google throttled us...waiting 30 seconds and retrying."
+      sleep(30)
+      retry
+    end
   end
 end
 

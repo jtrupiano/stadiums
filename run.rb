@@ -1,42 +1,5 @@
 require './environment'
 
-class Scheduler
-  attr_reader :games
-  def initialize(games)
-    @games = games
-  end
-
-  def to_csv
-    CSV.generate do |csv|
-      csv << ["ID", "Game Date", "Game Time", "Away Team", "Home Team", "Distance to Travel", "Hours Available", "Driving Time", "Down Time"]
-
-      last_game = nil
-      games.each do |game|
-        row = [game.id, game.gametime.strftime("%m/%d/%y"), 
-          game.gametime.strftime("%I:%M %p"),
-          game.away_team.team, game.home_team.team
-        ]
-        if last_game
-          distance = Distance.between(game.home_team, last_game.home_team)
-          hours_available = (game.must_arrive_no_later_than_in_seconds_since_epoch - last_game.cannot_leave_earlier_than_in_seconds_since_epoch) / 3600.0
-          down_time = hours_available - distance.distance_in_hours
-
-          row << distance.distance_in_miles
-          row << hours_available
-          row << distance.distance_in_hours
-          row << hours_available - distance.distance_in_hours
-        else
-          row << "N/A"
-          row << "N/A" 
-          row << "N/A" 
-          row << "N/A"
-        end
-        csv << row
-        last_game = game
-      end
-    end
-  end
-end
 
 # route_1_games = Game.find(
 #   [843,845,857,859,874,885,890,900,909,919,929,932,940,951,958,966,973,986,989,1000,1005,1015,1027,1034,1035,1043,1051,1052,1067,1070,1082,1084]
@@ -91,7 +54,7 @@ def find_next_game(memo)
       memo.push(g)
       if memo.size >= CHAIN_SIZE
         puts "DING DING DING WE HAVE A WINNER"
-        File.open("discovered_route#{@cnt += 1}.csv", 'w') {|f| f.write(Scheduler.new(memo).to_csv) }
+        File.open("discovered_route#{@cnt += 1}.csv", 'w') {|f| f.write(ScheduleOutputter.new(memo).to_csv) }
       end
       find_next_game(memo)
       memo.pop

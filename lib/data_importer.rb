@@ -6,6 +6,19 @@ class DataImporter
     @_db ||= PGconn.open(:dbname => 'stadiums', :host => 'localhost')
   end
 
+  def import_data
+    import_stadiums
+    import_distances
+  end
+
+  def clear_data
+    sql = <<-SQL
+      DELETE ALL FROM games;
+      DELETE ALL FROM distances;
+      DELETE ALL FROM stadiums;
+    SQL
+  end
+
   def import_stadiums
     lines = File.readlines('stadiums.txt')
     lines_grouped_by_stadium = lines.inject([]) {|memo, line|
@@ -27,19 +40,26 @@ class DataImporter
     puts "#{lines_grouped_by_stadium.size} stadiums"
   end
 
-  def import_distances
+  def import_distances(clear_first=true)
+    Distance.delete_all if clear_first
+
     stadiums = Stadium.all
+    distances = Distance.all
     stadiums.each do |from|
       stadiums.each do |to|
-        next if to.id <= from.id || Distance.exists?(:from_stadium => from.id, :to_stadium => to.id)
-        distances = from.lookup_distance_to(to)
-        Distance.create!(:from_stadium => from, :to_stadium => to, :distance_in_miles => distances.miles, :distance_in_minutes => distances.minutes)
+        next if to.id <= from.id || distances.detect {|distance| distance.from_stadium_id == from.id && distance.to_stadium_id == to.id}
+        distances_from_google = from.lookup_distance_to(to)
+        distances << Distance.create!(
+          :from_stadium => from, :to_stadium => to, 
+          :distance_in_miles => distances_from_google.miles, 
+          :distance_in_minutes => distances_from_google.minutes
+        )
       end
     end
   end
 
   def import_schedule
-    doc = Nokogiri::HTML(open('schedule.html'))
+    doc = Nokogiri::HTML(open('schedule2012.html'))
 
     doc.css('table').each do |tbl|
       tbl.css('tr.colhead').each do |date_tr|

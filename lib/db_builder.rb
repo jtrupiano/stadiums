@@ -11,9 +11,9 @@ class DbBuilder
 
   def clear_tables
     sql = <<-SQL
+      DROP TABLE IF EXISTS games;
       DROP TABLE IF EXISTS distances;
       DROP TABLE IF EXISTS stadiums;
-      DROP TABLE IF EXISTS games;
     SQL
     db.exec(sql)
   end
@@ -35,8 +35,8 @@ class DbBuilder
       CREATE TABLE distances (
         from_stadium_id integer NOT NULL references stadiums(id),
         to_stadium_id   integer NOT NULL references stadiums(id),
-        distance_in_miles integer NOT NULL,
-        distance_in_hours integer NOT NULL
+        distance_in_miles   integer NOT NULL,
+        distance_in_minutes integer NOT NULL
       );
     SQL
     db.exec(sql)
