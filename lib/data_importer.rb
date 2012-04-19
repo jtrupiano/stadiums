@@ -63,6 +63,7 @@ class DataImporter
 
   def import_schedule
     doc = Nokogiri::HTML(open('data/schedule2012.html'))
+    current_week = 1
 
     doc.css('table').each do |tbl|
       tbl.css('tr.colhead').each do |date_tr|
@@ -80,12 +81,16 @@ class DataImporter
           away = Stadium.find(:first, :conditions => ["team LIKE ?", "#{away_city}%"])
           home = Stadium.find(:first, :conditions => ["team LIKE ?", "#{home_city}%"])
 
-          g = Game.create!(:home_team => home, :away_team => away, :gametime => gametime)
+          g = Game.create!(
+            :home_team => home, :away_team => away, 
+            :gametime => gametime, :week => current_week
+          )
           puts g.to_s
 
           game_tr = game_tr.next_element
         end
       end
+      current_week += 1
     end
   end
 

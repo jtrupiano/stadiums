@@ -48,7 +48,8 @@ class DbBuilder
         id SERIAL PRIMARY KEY,
         home_stadium_id integer NOT NULL references stadiums(id),
         away_stadium_id integer NOT NULL references stadiums(id),
-        gametime timestamp NOT NULL
+        gametime timestamp NOT NULL,
+        week integer NOT NULL
       )
     SQL
     db.exec(sql)
