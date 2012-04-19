@@ -20,7 +20,7 @@ class DataImporter
   end
 
   def import_stadiums
-    lines = File.readlines('stadiums.txt')
+    lines = File.readlines('data/stadiums.txt')
     lines_grouped_by_stadium = lines.inject([]) {|memo, line|
       if line =~ /^Team/
         memo << [line]
@@ -62,7 +62,7 @@ class DataImporter
   end
 
   def import_schedule
-    doc = Nokogiri::HTML(open('schedule2012.html'))
+    doc = Nokogiri::HTML(open('data/schedule2012.html'))
 
     doc.css('table').each do |tbl|
       tbl.css('tr.colhead').each do |date_tr|
