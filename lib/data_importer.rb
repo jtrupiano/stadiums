@@ -47,7 +47,10 @@ class DataImporter
     distances = Distance.all
     stadiums.each do |from|
       stadiums.each do |to|
-        next if to.id <= from.id || distances.detect {|distance| distance.from_stadium_id == from.id && distance.to_stadium_id == to.id}
+        # store A --> B but not B --> A
+        next if to.id <= from.id
+        # don't duplicate
+        next if distances.detect {|distance| distance.from_stadium_id == from.id && distance.to_stadium_id == to.id}
         distances_from_google = from.lookup_distance_to(to)
         distances << Distance.create!(
           :from_stadium => from, :to_stadium => to, 
