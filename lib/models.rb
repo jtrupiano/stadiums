@@ -75,13 +75,17 @@ class Game < ActiveRecord::Base
   end
 
   def can_travel_to?(other_game)
-    return false if self.id == other_game.id
-    return true if self.home_team.id == other_game.home_team.id
+    return false if same_game?(other_game)
     travel_time_required_in_hours = Distance.between(self.home_team, other_game.home_team).distance_in_hours
     total_available_time_in_hours = (other_game.must_arrive_no_later_than - self.cannot_leave_earlier_than) / 3600.0
     acceptable_downtime = 10 # hours
     return (total_available_time_in_hours - travel_time_required_in_hours) > acceptable_downtime
   end
+
+  private
+    def same_game?(other_game)
+      same_game.id == other_game.id
+    end
 end
 
 
