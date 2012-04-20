@@ -101,9 +101,3 @@ class Game < ActiveRecord::Base
 end
 
 
-class TravelingGame < ActiveRecord::Base
-  belongs_to :from_game, :class_name => 'Game', :foreign_key => :from_game_id
-  belongs_to :to_game,   :class_name => 'Game', :foreign_key => :to_game_id
-  belongs_to :from_stadium, :class_name => 'Stadium', :foreign_key => :from_stadium_id
-  belongs_to :to_stadium,   :class_name => 'Stadium', :foreign_key => :to_stadium_id
-end
