@@ -46,6 +46,10 @@ class Game < ActiveRecord::Base
   belongs_to :away_team, :class_name => "Stadium", :foreign_key => :away_stadium_id
   has_many :traveling_games, :foreign_key => :from_game_id
 
+  class << self
+    attr_accessor :minimum_downtime, :acceptable_drive_v_downtime_ratio
+  end
+
   def to_s
     @s ||= "#{gametime.strftime('%a %m/%d %I:%M%p')} #{away_team.team} @ #{home_team.team}"
   end
@@ -76,10 +80,13 @@ class Game < ActiveRecord::Base
 
   def can_travel_to?(other_game)
     return false if same_game?(other_game)
-    acceptable_distance = 1000
-    return false if Distance.between(self.home_team, other_game.home_team).distance_in_miles > acceptable_distance
-    acceptable_downtime = 10 # hours
-    return (available_time_in_hours_between(other_game) - travel_time_required_in_hours_between(other_game)) > acceptable_downtime
+
+    drive_time  = travel_time_required_in_hours_between(other_game)
+    downtime    = available_time_in_hours_between(other_game) - drive_time
+    return false if downtime < Game.minimum_downtime
+
+    drive_v_down_ratio = drive_time.to_f / downtime.to_f
+    return drive_v_down_ratio <= Game.acceptable_drive_v_downtime_ratio
   end
 
   # don't skip more than a week
