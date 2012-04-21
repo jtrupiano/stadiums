@@ -76,6 +76,8 @@ class Game < ActiveRecord::Base
 
   def can_travel_to?(other_game)
     return false if same_game?(other_game)
+    acceptable_distance = 1000
+    return false if Distance.between(self.home_team, other_game.home_team).distance_in_miles > acceptable_distance
     acceptable_downtime = 10 # hours
     return (available_time_in_hours_between(other_game) - travel_time_required_in_hours_between(other_game)) > acceptable_downtime
   end
