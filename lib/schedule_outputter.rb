@@ -42,7 +42,7 @@ class ScheduleOutputter
           struct.distance_to_travel = distance.distance_in_miles
           struct.hours_available    = hours_available
           struct.driving_time       = distance.distance_in_hours
-          struct.down_time          = distance.down_time
+          struct.down_time          = down_time
         else
           struct.distance_to_travel = "N/A"
           struct.hours_available    = "N/A"
