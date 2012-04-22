@@ -27,13 +27,17 @@ class Runner
         if memo.size >= CHAIN_SIZE
           ScheduleOutputter.new(memo).save_to_csv(@cnt += 1)
         end
-        if memo.size == 2
-          puts memo.last.to_s
+        if memo.size <= 12
+          puts "#{spaces(memo.size)} #{memo.last.to_s}"
         end
         find_next_game(memo)
         memo.pop
       end
     end
+  end
+
+  def spaces(num)
+    (1..num).map {|i| " "}.join
   end
 
   def solve!(games)
