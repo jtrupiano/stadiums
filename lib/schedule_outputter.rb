@@ -29,6 +29,8 @@ class ScheduleOutputter
       games.map do |game|
         struct = OpenStruct.new(
           :id => game.id,
+          :week     => game.week,
+          :gameday  => game.gametime.strftime("%a"),
           :gamedate => game.gametime.strftime("%m/%d/%y"),
           :gametime => game.gametime.strftime("%I:%M %p"),
           :away_team => game.away_team.team,
@@ -40,14 +42,16 @@ class ScheduleOutputter
           down_time = hours_available - distance.distance_in_hours
 
           struct.distance_to_travel = distance.distance_in_miles
-          struct.hours_available    = hours_available
-          struct.driving_time       = distance.distance_in_hours
-          struct.down_time          = down_time
+          struct.hours_available    = hours_available.round(2)
+          struct.driving_time       = distance.distance_in_hours.round(2)
+          struct.down_time          = down_time.round(2)
+          struct.drive_down_ratio   = (struct.driving_time / struct.down_time).round(2)
         else
           struct.distance_to_travel = "N/A"
           struct.hours_available    = "N/A"
           struct.driving_time       = "N/A"
           struct.down_time          = "N/A"
+          struct.drive_down_ratio   = "N/A"
         end
         last_game = game
         struct
@@ -57,11 +61,13 @@ class ScheduleOutputter
 
   def to_csv
     CSV.generate do |csv|
-      csv << ["ID", "Game Date", "Game Time", "Away Team", "Home Team", "Distance to Travel", "Hours Available", "Driving Time", "Down Time"]
+      csv << ["ID", "Week", "Day", "Date", "Time", "Away Team", "Home Team", "Distance to Travel", "Hours Available", "Driving Time", "Down Time", "Drive / Down"]
 
       games_as_struct.each do |game|
         row = [
           game.id,
+          game.week,
+          game.gameday,
           game.gamedate,
           game.gametime,
           game.away_team,
@@ -69,7 +75,8 @@ class ScheduleOutputter
           game.distance_to_travel,
           game.hours_available,
           game.driving_time,
-          game.down_time
+          game.down_time,
+          game.drive_down_ratio
         ]
         csv << row
       end
